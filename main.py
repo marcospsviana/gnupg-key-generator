@@ -1,6 +1,17 @@
 from tkinter import ttk
 from tkinter import Tk, PhotoImage
 
+import gnupg
+import tempfile
+import os
+
+def get_temp_gnupghome(name):
+    ...
+
+
+def generate_key_pair(type, size, alg):
+    ...
+
 root = Tk()
 root.title("My App")
 root.geometry("800x600")
