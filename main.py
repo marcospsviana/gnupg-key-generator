@@ -7,8 +7,8 @@ import os
 
 import time
 
-def get_name_gnupghome(entity, name):
-    return f"{entity}_{time.strftime('%Y')}_{time.strftime('%m')}_{time.strftime('%d')}_{time.strftime('%H_%M_%S')}_{name}"
+def get_name_gnupghome(entity):
+    return f"{entity} {time.strftime('%Y')}-{time.strftime('%H_%M_%S')}"
 
 
 def generate_key_pair(type, size, alg):

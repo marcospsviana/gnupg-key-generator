@@ -16,3 +16,14 @@ dev = [
     "pytest-coverage>=0.0",
     "ruff>=0.9.7",
 ]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=.",
+    ]
+    testfiles = ["test_gnupg_generator.py"]
+    norecursedirs = ["dist", "build", ".tox", ".eggs"]
+    doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
+    doctest_encoding = "utf-8"
+
+   

@@ -12,5 +12,5 @@ from freezegun import freeze_time
 def test_get_name_gnupghome():
     entity = "entity"
     name = "name"
-    name_key = get_name_gnupghome(entity, name)
-    assert name_key == f"{entity}_2025_02_25_{time.strftime('%H_%M_%S')}_{name}"
+    name_key = get_name_gnupghome(entity)
+    assert name_key == f"{entity} 2025-{time.strftime('%H_%M_%S')}"
