@@ -5,8 +5,10 @@ import gnupg
 import tempfile
 import os
 
-def get_temp_gnupghome(name):
-    ...
+import time
+
+def get_name_gnupghome(entity):
+    return f"{entity} {time.strftime('%Y')}-{time.strftime('%H_%M_%S')}"
 
 
 def generate_key_pair(type, size, alg):

@@ -7,3 +7,23 @@ requires-python = ">=3.12"
 dependencies = [
     "python-gnupg>=0.5.4",
 ]
+
+[dependency-groups]
+dev = [
+    "freezegun>=1.5.1",
+    "isort>=6.0.0",
+    "pytest>=8.3.4",
+    "pytest-coverage>=0.0",
+    "ruff>=0.9.7",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cov=.",
+    ]
+    testfiles = ["test_gnupg_generator.py"]
+    norecursedirs = ["dist", "build", ".tox", ".eggs"]
+    doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
+    doctest_encoding = "utf-8"
+
+   
