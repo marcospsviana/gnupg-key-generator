@@ -6,6 +6,19 @@ import tempfile
 import os
 
 import time
+import string
+import random
+
+
+def generate_pass(pass_lenght: int) -> string:
+    password = ""
+    list_chars = f"{string.ascii_letters}{string.digits}{string.punctuation}".replace("\"", "").replace("/", "")
+    for _ in range(pass_lenght):
+        password += random.choice(list_chars)
+    return password
+
+
+
 
 def get_name_gnupghome(entity):
     return f"{entity} {time.strftime('%Y-%m-%d')}"
@@ -24,12 +37,13 @@ def make_directories_name(entity):
     return dest_current_key
 
 
-def generate_key_pair(type, size, alg, email, entity):
+def generate_key_pair(type, size, alg, email, entity, len_pass):
     
     dest_current_key = make_directories_name(entity=entity)
     real_name = get_name_gnupghome(entity=entity)
     gpg = gnupg.GPG(gnupghome=dest_current_key)
     gpg.encoding = 'utf-8'
+    passphrase = generate_pass(len_pass)
     key_input = gpg.gen_key_input(
         name_real=real_name,
         name_email=f"{email}",
