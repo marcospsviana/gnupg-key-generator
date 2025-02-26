@@ -4,7 +4,7 @@ import tempfile
 from datetime import datetime
 import time
 from unittest.mock import patch
-from main import get_name_gnupghome, generate_key_pair, get_name_gnupghome
+from main import get_name_gnupghome, generate_key_pair, get_name_gnupghome, generate_pass
 from freezegun import freeze_time
 
 
@@ -46,8 +46,9 @@ mock_key = {
     "subkey_validity": "Subkey Validity",
     "subkey_ownertrust": "Subkey Owner Trust",
     "subkey_revoked": "Subkey Revoked",
-    "subkey_revocation_reason": "Subkey Revocation Reason"
+    "subkey_revocation_reason": "Subkey Revocation Reason",
 }
+
 
 @freeze_time(time_to_freeze="2025-02-23T22:05")
 def test_get_name_gnupghome():
@@ -61,6 +62,11 @@ def test_generate_key_pair(mock_gpg):
     entity = "entity"
     real_name = get_name_gnupghome(entity)
     mock_gpg.return_value.gen_key.return_value = mock_key
-    key = generate_key_pair("RSA", 2048, "RSA", "email", entity)
+    key = generate_key_pair("RSA", 2048, "RSA", "email", entity, 25)
     assert key == mock_key
-    
+
+def test_generate_pass():
+    password = generate_pass(25)
+    assert len(password) == 25
+    assert "\"" not in password
+    assert "/" not in password
