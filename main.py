@@ -64,7 +64,21 @@ main = ttk.Frame(root, padding=(5, 5, 12, 12))
 main.grid(column=0, row=0)
 logo_img = PhotoImage(file="assets/gnupgEncrypter.png")
 logo = ttk.Label(main, image=logo_img)
-logo.grid(column=0, row=0, columnspan=2)
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
+logo.grid(column=0, row=0, columnspan=10)
+# root.columnconfigure(0, weight=2)
+# root.rowconfigure(0, weight=2)
+
+frame_entries = ttk.Frame(master=main, width=120, padding=0).grid(column=0, row=1, padx=10, pady=10)
+
+label_entity = ttk.Label(master=frame_entries, text="Real Name", width=10).grid(column=0, row=1, padx=2, pady=10, columnspan=1, sticky="E")
+input_entity = ttk.Entry(master=frame_entries, width=20, justify="left").grid(column=1, row=1, padx=10, pady=10, columnspan=1, sticky="WE")
+
+label_alg = ttk.Label(master=frame_entries, text="Algorithm", width=10).grid(column=2, row=1, padx=2, pady=10, columnspan=1)
+input_alg = ttk.Entry(master=frame_entries, width=25).grid(column=3, row=1, padx=1, pady=10, columnspan=2, sticky="EW")
+
+label_entity = ttk.Label(master=frame_entries, text="Passphrase", width=10).grid(column=0, row=3, padx=10, pady=10, sticky="E")
+input_entity = ttk.Entry(master=frame_entries, width=100).grid(column=1, row=3, padx=10, pady=10)
+input_entity = ttk.Button(master=frame_entries, width=16, text="Generate Pasphrase", style="").grid(column=2, row=3, padx=10, pady=10)
+
+
 root.mainloop()
