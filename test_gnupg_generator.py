@@ -50,7 +50,7 @@ mock_key = {
 }
 
 
-@freeze_time(time_to_freeze="2025-02-23T22:05")
+@freeze_time(time_to_freeze="2025-02-23 22:05:00")
 def test_get_name_gnupghome():
     entity = "entity"
     name = "name"
