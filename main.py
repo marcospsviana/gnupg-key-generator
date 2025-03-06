@@ -12,12 +12,6 @@ import random
 MAX_LENGHT_COMBO_PASS = [str(x) for x in range(6, 60)]
 
 
-def generate_pass(pass_lenght: int) -> string:
-    password = ""
-    list_chars = f"{string.ascii_letters}{string.digits}{string.punctuation}".replace("\"", "").replace("/", "")
-    for _ in range(pass_lenght):
-        password += random.choice(list_chars)
-    return password
 
 
 
@@ -39,13 +33,18 @@ def make_directories_name(entity):
     return dest_current_key
 
 
-def generate_key_pair(type, size, alg, email, entity, len_pass):
+def generate_key_pair():
     
+    print(f'LEN PASS {len_pass}')
+    password = ""
+    list_chars = f"{string.ascii_letters}{string.digits}{string.punctuation}".replace("\"", "").replace("/", "")
+    for _ in range(pass_lenght):
+        password += random.choice(list_chars)
     dest_current_key = make_directories_name(entity=entity)
     real_name = get_name_gnupghome(entity=entity)
     gpg = gnupg.GPG(gnupghome=dest_current_key)
     gpg.encoding = 'utf-8'
-    passphrase = generate_pass(len_pass)
+    print(f"PASSWORD {password}")
     key_input = gpg.gen_key_input(
         name_real=real_name,
         name_email=f"{email}",
@@ -58,6 +57,15 @@ def generate_key_pair(type, size, alg, email, entity, len_pass):
     )
     key = gpg.gen_key(key_input)
     return key
+
+def generate_pass() -> string:
+    password = ""
+    pass_lenght = int(input_pass_length.get())
+    list_chars = f"{string.ascii_letters}{string.digits}{string.punctuation}".replace("\"", "").replace("/", "")
+    for _ in range(pass_lenght):
+        password += random.choice(list_chars)
+    return password
+
 
 root = Tk()
 root.title("My App")
@@ -81,9 +89,11 @@ input_alg = ttk.Entry(master=frame_entries, width=25).grid(column=3, row=1, padx
 label_entity = ttk.Label(master=frame_entries, text="Passphrase", width=10).grid(column=0, row=3, padx=10, pady=10, sticky="E")
 input_entity = ttk.Entry(master=frame_entries, width=100).grid(column=1, row=3, padx=10, pady=10)
 label_pass_length = ttk.Label(master=frame_entries, text="Size passphrase", width=13).grid(column=2, row=3, padx=10, pady=10, sticky="E")
-ttk.Sizegrip(master=frame_entries, name="sg").grid(column=4, row=3, padx=1, pady=10, sticky="W")
-input_entity = ttk.Combobox(master=frame_entries, width=10, values=MAX_LENGHT_COMBO_PASS).grid(column=4, row=3, padx=1, pady=10, sticky="W")
-input_entity = ttk.Button(master=frame_entries, width=16, text="Generate Pasphrase", style="", command=generate_pass).grid(column=5, row=3, padx=10, pady=10)
+
+input_pass_length = ttk.Combobox(master=frame_entries, width=10, values=MAX_LENGHT_COMBO_PASS)
+input_pass_length.grid(column=4, row=3, padx=1, pady=10, sticky="W")
+input_pass_length.bind("<<ComboboxSelected>>", input_pass_length.get())
+button_generate = ttk.Button(master=frame_entries, width=16, text="Generate Pasphrase", style="", command=generate_pass).grid(column=5, row=3, padx=10, pady=10)
 
 
 root.mainloop()
