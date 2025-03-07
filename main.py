@@ -68,6 +68,15 @@ def generate_pass() -> string:
     return password
 
 
+def show_pass():
+    show = input_entity_pass["show"]
+    if show == "*":
+        input_entity_pass.config(show="")
+    else:
+        input_entity_pass.config(show="*")
+
+
+
 root = Tk()
 root.title("My App")
 root.geometry("800x600")
@@ -88,8 +97,10 @@ label_alg = ttk.Label(master=frame_entries, text="Algorithm", width=10).grid(col
 input_alg = ttk.Entry(master=frame_entries, width=25).grid(column=3, row=1, padx=1, pady=10, columnspan=2, sticky="EW")
 
 label_entity = ttk.Label(master=frame_entries, text="Passphrase", width=10).grid(column=0, row=3, padx=10, pady=10, sticky="E")
-input_entity_pass = ttk.Entry(master=frame_entries, width=100, show="*").grid(column=1, row=3, padx=10, pady=10)
-label_pass_length = ttk.Label(master=frame_entries, text="Size passphrase", width=13).grid(column=2, row=3, padx=10, pady=10, sticky="E")
+input_entity_pass = ttk.Entry(master=frame_entries, width=100, show="*")
+input_entity_pass.grid(column=1, row=3, padx=10, pady=10)
+btn_pass_show = ttk.Button(master=frame_entries, text="Show Pass", command=show_pass).grid(column=2, row=3, padx=10, pady=10)
+label_pass_length = ttk.Label(master=frame_entries, text="Size passphrase", width=13).grid(column=3, row=3, padx=10, pady=10, sticky="E")
 
 input_pass_length = ttk.Combobox(master=frame_entries, width=10, values=MAX_LENGHT_COMBO_PASS)
 input_pass_length.grid(column=4, row=3, padx=1, pady=10, sticky="W")
